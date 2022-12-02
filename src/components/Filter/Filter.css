@@ -1,0 +1,23 @@
+﻿.Filter_box {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.Filter_title {
+  font-weight: 600;
+  font-size: 15px;
+}
+.Filter_input {
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 15px;
+  font-size: 15px;
+  box-shadow: 2px 2px 10px 3px #7fdbdb;
+  border: none;
+  height: 20px;
+}
+.Filter_input:focus {
+  border: none;
+  outline: none;
+}

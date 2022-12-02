@@ -1,0 +1,24 @@
+﻿﻿.Phonebook_box {
+  width: 600px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 15px 8px #afeeee;
+}
+.Phonebook_title {
+  color: rgb(5, 69, 69);
+  text-align: center;
+  background-color: rgb(227, 248, 248);
+  box-shadow: 2px 2px 10px 3px #afeeee;
+  padding: 10px;
+  border-radius: 15px;
+}
+.Phonebook_second-title {
+  color: rgb(5, 69, 69);
+  text-align: center;
+  background-color: rgb(227, 248, 248);
+  box-shadow: 2px 2px 10px 3px #afeeee;
+  padding: 10px;
+  border-radius: 15px;
+}
