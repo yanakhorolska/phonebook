@@ -1,6 +1,7 @@
 import { useDeleteContactMutation } from 'redux/contactsSlice';
 import './Contact.css';
 import PropTypes from 'prop-types';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Contact = ({ contact }) => {
   const [deleteContact] = useDeleteContactMutation();
@@ -8,7 +9,10 @@ export const Contact = ({ contact }) => {
   const handleDelete = async () => {
     try {
       await deleteContact(contact.id);
-    } catch (error) {}
+      Notify.success('Contact was delete from your phonebook');
+    } catch (error) {
+      Notify.failure('Something wrong. Please, try again');
+    }
   };
 
   return (
