@@ -11,6 +11,7 @@ const App = () => {
       <ContactForm />
       <h2 className="Phonebook_second-title">Contacts</h2>
       <Filter />
+
       <ContactList />
     </div>
   );

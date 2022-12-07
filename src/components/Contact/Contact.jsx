@@ -1,12 +1,15 @@
-import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
+import { useDeleteContactMutation } from 'redux/contactsSlice';
 import './Contact.css';
 import PropTypes from 'prop-types';
 
 export const Contact = ({ contact }) => {
-  const dispatch = useDispatch();
+  const [deleteContact] = useDeleteContactMutation();
 
-  const handleDelete = () => dispatch(deleteContact(contact.id));
+  const handleDelete = async () => {
+    try {
+      await deleteContact(contact.id);
+    } catch (error) {}
+  };
 
   return (
     <div className="List_item">
