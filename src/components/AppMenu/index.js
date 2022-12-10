@@ -1,1 +1,1 @@
-﻿export { default } from './AppMenu';
+export { default } from './AppMenu';

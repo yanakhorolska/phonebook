@@ -1,4 +1,4 @@
-﻿import AppMenu from 'components/AppMenu';
+import AppMenu from 'components/AppMenu';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LayoutPage } from './Layout.styled';

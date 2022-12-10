@@ -1,4 +1,4 @@
-﻿import {
+import {
   Header,
   HomeButton,
   NavMenu,
