@@ -1,4 +1,3 @@
-import { Outlet } from 'react-router-dom';
 import { MainBg } from './Main.styled';
 import { HelloTitle, Text, ListItem, TextBox } from './Main.styled';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
