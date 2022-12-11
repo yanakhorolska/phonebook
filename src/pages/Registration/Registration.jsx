@@ -11,9 +11,25 @@ import {
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/operations';
 
 const Registration = () => {
   const [passwordType, setPasswordType] = useState('password');
+  const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    dispatch(
+      register({
+        name: form.elements.name.value,
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+      })
+    );
+    form.reset();
+  };
 
   const changePasswordType = e => {
     e.preventDefault();
@@ -25,11 +41,11 @@ const Registration = () => {
   };
   return (
     <RegistrationBox>
-      <RegistrationForm>
+      <RegistrationForm onSubmit={handleSubmit}>
         <RegistrationTitle>Sign up</RegistrationTitle>
         <RegistrationLabel htmlFor="">
           Email
-          <RegistrationInput type="email" />
+          <RegistrationInput required type="email" name="email" />
         </RegistrationLabel>
         <RegistrationLabel htmlFor="">
           <PasswordBox>
@@ -39,11 +55,11 @@ const Registration = () => {
               {passwordType === 'text' && <VisibilityOffIcon />}
             </VisibilityButton>
           </PasswordBox>
-          <RegistrationInput type={passwordType} />
+          <RegistrationInput required type={passwordType} name="password" />
         </RegistrationLabel>
         <RegistrationLabel htmlFor="">
           Name
-          <RegistrationInput type="text" />
+          <RegistrationInput required type="text" name="name" />
         </RegistrationLabel>
         <RegistrationButton type="submit">Sign up</RegistrationButton>
       </RegistrationForm>

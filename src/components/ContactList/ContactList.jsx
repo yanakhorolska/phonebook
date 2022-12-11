@@ -1,31 +1,36 @@
-import './ContactList.css';
+import { ContactsList } from './ContactList.styled';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { getFilter } from 'redux/selectors';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter, selectContacts } from 'redux/selectors';
 import { Contact } from 'components/Contact/Contact';
-import { useGetContactsQuery } from 'redux/contactsSlice';
+import { fetchContacts } from 'redux/operations';
 
 const ContactList = () => {
-  const { data, error, isLoading } = useGetContactsQuery();
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
   const { filter } = useSelector(getFilter);
 
-  if (!data) {
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  if (!contacts) {
     return null;
   }
-  const visibleContacts = data.filter(contact =>
+  const visibleContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
     <div>
-      {!error && isLoading && <div>Loading</div>}
-      <ul className="List_box">
+      <ContactsList>
         {visibleContacts.map(contact => (
-          <li className="List_item" key={contact.id}>
+          <li key={contact.id}>
             <Contact contact={contact} />
           </li>
         ))}
-      </ul>
+      </ContactsList>
     </div>
   );
 };

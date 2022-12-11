@@ -1,6 +1,6 @@
-import './Filter.css';
 import { useDispatch } from 'react-redux';
 import { addFilter } from 'redux/filterSlice';
+import { FilterBox, FilterInput, FilterTitle } from './Filter.styled';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -11,16 +11,15 @@ const Filter = () => {
     dispatch(addFilter(name));
   };
   return (
-    <div className="Filter_box">
-      <p className="Filter_title">Find contacts by name</p>
-      <input
-        className="Filter_input"
+    <FilterBox>
+      <FilterTitle>Find contacts by name</FilterTitle>
+      <FilterInput
         type="text"
         autoComplete="off"
         onChange={handleChange}
         name="name"
       />
-    </div>
+    </FilterBox>
   );
 };
 

@@ -1,88 +1,88 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './operations';
 
-export const contactsApi = createApi({
-  reducerPath: 'contacts',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://639078cc65ff41831114ac0d.mockapi.io',
-  }),
-  tagTypes: ['Material'],
-  endpoints: builder => ({
-    getContacts: builder.query({
-      query: () => `/contacts`,
-      providesTags: ['Material'],
-    }),
-    addContact: builder.mutation({
-      query: values => ({
-        url: '/contacts',
-        method: 'POST',
-        body: values,
-      }),
-      invalidatesTags: ['Material'],
-    }),
-    deleteContact: builder.mutation({
-      query: id => ({
-        url: `/contacts/${id}`,
-        method: 'DELETE',
-      }),
-      invalidatesTags: ['Material'],
-    }),
-  }),
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
+const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
+  extraReducers: {
+    [fetchContacts.pending]: handlePending,
+    [fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = action.payload;
+    },
+    [fetchContacts.rejected]: handleRejected,
+    [addContact.pending]: handlePending,
+    [addContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(action.payload);
+    },
+    [addContact.rejected]: handleRejected,
+    [deleteContact.pending]: handlePending,
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.items.splice(index, 1);
+    },
+    [deleteContact.rejected]: handleRejected,
+  },
 });
 
-export const {
-  useGetContactsQuery,
-  useAddContactMutation,
-  useDeleteContactMutation,
-} = contactsApi;
+export const contactsReducer = contactsSlice.reducer;
 
-// import { createSlice } from '@reduxjs/toolkit';
-// import { fetchContacts, addContact, deleteContact } from './operations';
+// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// const handlePending = state => {
-//   state.isLoading = true;
-// };
-
-// const handleRejected = (state, action) => {
-//   state.isLoading = false;
-//   state.error = action.payload;
-// };
-
-// const contactsSlice = createSlice({
-//   name: 'contacts',
-//   initialState: {
-//     items: [],
-//     isLoading: false,
-//     error: null,
-//   },
-//   extraReducers: {
-//     [fetchContacts.pending]: handlePending,
-//     [fetchContacts.fulfilled](state, action) {
-//       state.isLoading = false;
-//       state.error = null;
-//       state.items = action.payload;
-//     },
-//     [fetchContacts.rejected]: handleRejected,
-//     [addContact.pending]: handlePending,
-//     [addContact.fulfilled](state, action) {
-//       state.isLoading = false;
-//       state.error = null;
-//       state.items.push(action.payload);
-//     },
-//     [addContact.rejected]: handleRejected,
-//     [deleteContact.pending]: handlePending,
-//     [deleteContact.fulfilled](state, action) {
-//       state.isLoading = false;
-//       state.error = null;
-//       const index = state.items.findIndex(
-//         contact => contact.id === action.payload.id
-//       );
-//       state.items.splice(index, 1);
-//     },
-//     [deleteContact.rejected]: handleRejected,
-//   },
+// export const contactsApi = createApi({
+//   reducerPath: 'contacts',
+//   baseQuery: fetchBaseQuery({
+//     baseUrl: 'https://connections-api.herokuapp.com/',
+//   }),
+//   tagTypes: ['Material'],
+//   endpoints: builder => ({
+//     getContacts: builder.query({
+//       query: () => `/contacts`,
+//       providesTags: ['Material'],
+//     }),
+//     addContact: builder.mutation({
+//       query: values => ({
+//         url: '/contacts',
+//         method: 'POST',
+//         body: values,
+//       }),
+//       invalidatesTags: ['Material'],
+//     }),
+//     deleteContact: builder.mutation({
+//       query: id => ({
+//         url: `/contacts/${id}`,
+//         method: 'DELETE',
+//       }),
+//       invalidatesTags: ['Material'],
+//     }),
+//   }),
 // });
 
-// export const contactsReducer = contactsSlice.reducer;
+// export const {
+//   useGetContactsQuery,
+//   useAddContactMutation,
+//   useDeleteContactMutation,
+// } = contactsApi;
 
 // import { combineReducers, createReducer } from '@reduxjs/toolkit';
 // import { fetchContacts, addContact, deleteContact } from './operations';

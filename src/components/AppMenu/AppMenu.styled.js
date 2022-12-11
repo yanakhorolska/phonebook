@@ -31,6 +31,7 @@ export const ContactsButton = styled(NavLink)`
 `;
 export const NavMenu = styled('div')`
   display: flex;
+  align-items: center;
   gap: 20px;
 `;
 export const NavItem = styled(NavLink)`
@@ -49,4 +50,9 @@ export const NavItem = styled(NavLink)`
     background-color: #fff;
     color: #f2e06c;
   }
+`;
+export const NavGreeting = styled('p')`
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
 `;
