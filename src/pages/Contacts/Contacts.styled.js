@@ -1,4 +1,4 @@
-﻿import styled from 'styled-components';
+import styled from 'styled-components';
 
 export const ContactsBox = styled('div')`
   padding: 158px 60px 0;

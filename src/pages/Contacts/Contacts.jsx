@@ -1,4 +1,4 @@
-﻿import ContactList from 'components/ContactList/ContactList';
+import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import ContactForm from '../../components/ContactForm';
 import { ContactsBox, ListBox } from './Contacts.styled';
