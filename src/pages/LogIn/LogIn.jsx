@@ -44,7 +44,7 @@ const LogIn = () => {
         <RegistrationTitle>Log in</RegistrationTitle>
         <RegistrationLabel htmlFor="">
           Email
-          <RegistrationInput name="email" type="text" />
+          <RegistrationInput required name="email" type="text" />
         </RegistrationLabel>
         <RegistrationLabel htmlFor="">
           <PasswordBox>
@@ -54,7 +54,7 @@ const LogIn = () => {
               {passwordType === 'text' && <VisibilityOffIcon />}
             </VisibilityButton>
           </PasswordBox>
-          <RegistrationInput name="password" type={passwordType} />
+          <RegistrationInput required name="password" type={passwordType} />
         </RegistrationLabel>
 
         <RegistrationButton type="submit">Log in</RegistrationButton>
