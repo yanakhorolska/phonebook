@@ -17,6 +17,14 @@ const contactsSlice = createSlice({
     isLoading: false,
     error: null,
   },
+  reducers: {
+    addLocalContact(state, action) {
+      state.items.push(action.payload);
+    },
+    deleteLocalContact(state, action) {
+      state.items = state.items.filter(contact => contact.id !== action.payload);
+    },
+  },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
     [fetchContacts.fulfilled](state, action) {
@@ -45,6 +53,7 @@ const contactsSlice = createSlice({
   },
 });
 
+export const { addLocalContact, deleteLocalContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
 
 // import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
