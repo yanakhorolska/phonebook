@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://connections-api.herokuapp.com';
 
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -21,8 +21,9 @@ export const register = createAsyncThunk(
       return res.data;
     } catch (error) {
       Notify.failure(
-        'Please fill the right email/your password must be longer'
+        error.response?.data?.message || 'Registration failed. Please check your details or try again later.'
       );
+      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -34,7 +35,8 @@ export const logIn = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      Notify.failure("This user wasn't registered");
+      Notify.failure("Login failed. Please check your credentials or try again later.");
+      return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
