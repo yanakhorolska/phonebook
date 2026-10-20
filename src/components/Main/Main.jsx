@@ -9,12 +9,12 @@ const Main = () => {
         <HelloTitle>Hello!</HelloTitle>
         <Text>
           I am your faithful assistant <InsertEmoticonIcon />, your phone book!
-          Register and you will have many advantages:
+          Your contacts are saved in this browser. Start using your phonebook:
         </Text>
         <ul>
           <ListItem>All your contacts in one place.</ListItem>
-          <ListItem>Easy access to the site from any device</ListItem>
-          <ListItem>Convenient navigation</ListItem>
+          <ListItem>No sign-up or server required</ListItem>
+          <ListItem>Contacts persist after refreshing the page</ListItem>
           <ListItem>Search filter</ListItem>
           <ListItem>Nice design</ListItem>
         </ul>
