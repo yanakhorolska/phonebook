@@ -18,17 +18,17 @@ const Registration = () => {
   const [passwordType, setPasswordType] = useState('password');
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const form = e.currentTarget;
-    dispatch(
+    const result = await dispatch(
       register({
         name: form.elements.name.value,
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
     );
-    form.reset();
+    if (register.fulfilled.match(result)) form.reset();
   };
 
   const changePasswordType = e => {
@@ -43,23 +43,23 @@ const Registration = () => {
     <RegistrationBox>
       <RegistrationForm onSubmit={handleSubmit}>
         <RegistrationTitle>Sign up</RegistrationTitle>
-        <RegistrationLabel htmlFor="">
+        <RegistrationLabel>
           Email
-          <RegistrationInput required type="email" name="email" />
+          <RegistrationInput required type="email" name="email" autoComplete="email" />
         </RegistrationLabel>
-        <RegistrationLabel htmlFor="">
+        <RegistrationLabel>
           <PasswordBox>
             <span>Password</span>
-            <VisibilityButton onClick={changePasswordType}>
+            <VisibilityButton type="button" onClick={changePasswordType}>
               {passwordType === 'password' && <VisibilityIcon />}
               {passwordType === 'text' && <VisibilityOffIcon />}
             </VisibilityButton>
           </PasswordBox>
-          <RegistrationInput required type={passwordType} name="password" />
+          <RegistrationInput required type={passwordType} name="password" autoComplete="new-password" />
         </RegistrationLabel>
-        <RegistrationLabel htmlFor="">
+        <RegistrationLabel>
           Name
-          <RegistrationInput required type="text" name="name" />
+          <RegistrationInput required type="text" name="name" autoComplete="name" />
         </RegistrationLabel>
         <RegistrationButton type="submit">Sign up</RegistrationButton>
       </RegistrationForm>
