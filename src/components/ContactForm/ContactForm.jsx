@@ -8,7 +8,7 @@ import {
 } from './ContactForm.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { addLocalContact } from 'redux/contactsSlice';
 
 const ContactForm = () => {
   const contacts = useSelector(selectContacts);
@@ -20,13 +20,12 @@ const ContactForm = () => {
     const name = form.elements.name.value;
     const number = form.elements.number.value;
     const contactData = { name, number };
-    form.reset();
-    if (contacts.find(contact => contact.name === name)) {
+    if (contacts.some(contact => contact.name.toLowerCase() === name.trim().toLowerCase())) {
       Notify.warning(`${name} is already in contacts`);
       return false;
     }
 
-    dispatch(addContact(contactData));
+    dispatch(addLocalContact({ ...contactData, id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}` }));
     form.reset();
   };
 
