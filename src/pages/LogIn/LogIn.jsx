@@ -27,34 +27,34 @@ const LogIn = () => {
     setPasswordType('text');
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const form = e.currentTarget;
-    dispatch(
+    const result = await dispatch(
       logIn({
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
     );
-    form.reset();
+    if (logIn.fulfilled.match(result)) form.reset();
   };
   return (
     <RegistrationBox>
       <RegistrationForm onSubmit={handleSubmit}>
         <RegistrationTitle>Log in</RegistrationTitle>
-        <RegistrationLabel htmlFor="">
+        <RegistrationLabel>
           Email
-          <RegistrationInput required name="email" type="text" />
+          <RegistrationInput required name="email" type="email" autoComplete="email" />
         </RegistrationLabel>
-        <RegistrationLabel htmlFor="">
+        <RegistrationLabel>
           <PasswordBox>
             <span>Password</span>
-            <VisibilityButton onClick={changePasswordType}>
+            <VisibilityButton type="button" onClick={changePasswordType}>
               {passwordType === 'password' && <VisibilityIcon />}
               {passwordType === 'text' && <VisibilityOffIcon />}
             </VisibilityButton>
           </PasswordBox>
-          <RegistrationInput required name="password" type={passwordType} />
+          <RegistrationInput required name="password" type={passwordType} autoComplete="current-password" />
         </RegistrationLabel>
 
         <RegistrationButton type="submit">Log in</RegistrationButton>
